@@ -1,8 +1,10 @@
 <template>
-  <div>
-    <h1>Restaurants</h1>
-    <RestaurantList />
-  </div>
+  <v-card>
+    <v-card-title>Restaurants</v-card-title>
+    <v-card-text>
+      <RestaurantList />
+    </v-card-text>
+  </v-card>
 </template>
 
 <script>
