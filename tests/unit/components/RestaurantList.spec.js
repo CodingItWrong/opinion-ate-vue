@@ -38,15 +38,13 @@ describe('RestaurantList', () => {
     wrapper = mount(RestaurantList, {localVue, store});
   }
 
-  beforeEach(() => {
-    mountWithStore();
-  });
-
   it('loads restaurants on mount', () => {
+    mountWithStore();
     expect(restaurantsModule.actions.load).toHaveBeenCalled();
   });
 
   it('displays the restaurants', () => {
+    mountWithStore();
     expect(findByTestId(wrapper, 'restaurant', 0).text()).toBe('Sushi Place');
     expect(findByTestId(wrapper, 'restaurant', 1).text()).toBe('Pizza Place');
   });
