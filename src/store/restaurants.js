@@ -3,7 +3,7 @@ const restaurants = api => ({
   state: {
     records: [],
     loading: false,
-    loadError: true,
+    loadError: false,
   },
   actions: {
     load({commit}) {
@@ -13,12 +13,17 @@ const restaurants = api => ({
         .then(records => {
           commit('storeRecords', records);
         })
-        .catch(() => {});
+        .catch(() => {
+          commit('recordLoadingError');
+        });
     },
   },
   mutations: {
     startLoading(state) {
       state.loading = true;
+    },
+    recordLoadingError(state) {
+      state.loadError = true;
     },
     storeRecords(state, records) {
       state.records = records;
