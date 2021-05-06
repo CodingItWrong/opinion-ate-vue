@@ -62,5 +62,26 @@ describe('restaurants', () => {
         expect(store.state.restaurants.loading).toEqual(false);
       });
     });
+
+    describe('when loading fails', () => {
+      let store;
+
+      beforeEach(() => {
+        const api = {
+          loadRestaurants: () => Promise.reject(),
+        };
+        store = new Vuex.Store({
+          modules: {
+            restaurants: restaurants(api),
+          },
+        });
+
+        return store.dispatch('restaurants/load');
+      });
+
+      it('sets an error flag', () => {
+        expect(store.state.restaurants.loadError).toEqual(true);
+      });
+    });
   });
 });
