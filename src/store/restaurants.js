@@ -14,6 +14,7 @@ const restaurants = api => ({
   mutations: {
     storeRecords(state, records) {
       state.records = records;
+      state.loading = false;
     },
   },
 });
