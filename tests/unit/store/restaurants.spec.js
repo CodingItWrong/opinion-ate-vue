@@ -23,23 +23,27 @@ describe('restaurants', () => {
     });
 
     describe('when loading succeeds', () => {
-      it('stores the restaurants', async () => {
-        const records = [
-          {id: 1, name: 'Sushi Place'},
-          {id: 2, name: 'Pizza Place'},
-        ];
+      const records = [
+        {id: 1, name: 'Sushi Place'},
+        {id: 2, name: 'Pizza Place'},
+      ];
 
+      let store;
+
+      beforeEach(() => {
         const api = {
           loadRestaurants: () => Promise.resolve(records),
         };
-        const store = new Vuex.Store({
+        store = new Vuex.Store({
           modules: {
             restaurants: restaurants(api),
           },
         });
 
-        await store.dispatch('restaurants/load');
+        return store.dispatch('restaurants/load');
+      });
 
+      it('stores the restaurants', () => {
         expect(store.state.restaurants.records).toEqual(records);
       });
     });
