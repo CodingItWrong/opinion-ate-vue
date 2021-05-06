@@ -3,34 +3,22 @@ import {mount, createLocalVue} from '@vue/test-utils';
 import RestaurantList from '@/components/RestaurantList';
 
 describe('RestaurantList', () => {
+  const findByTestId = (wrapper, testId, index) =>
+    wrapper.findAll(`[data-testid="${testId}"]`).at(index);
+
+  const records = [
+    {id: 1, name: 'Sushi Place'},
+    {id: 2, name: 'Pizza Place'},
+  ];
+
   const localVue = createLocalVue();
   localVue.use(Vuex);
 
-  it('loads restaurants on mount', () => {
-    const restaurantsModule = {
-      namespaced: true,
-      actions: {
-        load: jest.fn().mockName('load'),
-      },
-    };
-    const store = new Vuex.Store({
-      modules: {
-        restaurants: restaurantsModule,
-      },
-    });
+  let restaurantsModule;
+  let wrapper;
 
-    mount(RestaurantList, {localVue, store});
-
-    expect(restaurantsModule.actions.load).toHaveBeenCalled();
-  });
-
-  it('displays the restaurants', () => {
-    const records = [
-      {id: 1, name: 'Sushi Place'},
-      {id: 2, name: 'Pizza Place'},
-    ];
-
-    const restaurantsModule = {
+  beforeEach(() => {
+    restaurantsModule = {
       namespaced: true,
       state: {records},
       actions: {
@@ -43,18 +31,15 @@ describe('RestaurantList', () => {
       },
     });
 
-    const wrapper = mount(RestaurantList, {localVue, store});
+    wrapper = mount(RestaurantList, {localVue, store});
+  });
 
-    const firstRestaurantName = wrapper
-      .findAll('[data-testid="restaurant"]')
-      .at(0)
-      .text();
-    expect(firstRestaurantName).toBe('Sushi Place');
+  it('loads restaurants on mount', () => {
+    expect(restaurantsModule.actions.load).toHaveBeenCalled();
+  });
 
-    const secondRestaurantName = wrapper
-      .findAll('[data-testid="restaurant"]')
-      .at(1)
-      .text();
-    expect(secondRestaurantName).toBe('Pizza Place');
+  it('displays the restaurants', () => {
+    expect(findByTestId(wrapper, 'restaurant', 0).text()).toBe('Sushi Place');
+    expect(findByTestId(wrapper, 'restaurant', 1).text()).toBe('Pizza Place');
   });
 });
