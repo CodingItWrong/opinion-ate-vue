@@ -7,6 +7,21 @@ describe('restaurants', () => {
   localVue.use(Vuex);
 
   describe('load action', () => {
+    describe('while loading', () => {
+      it('sets a loading flag', () => {
+        const api = {
+          loadRestaurants: () => new Promise(() => {}),
+        };
+        const store = new Vuex.Store({
+          modules: {
+            restaurants: restaurants(api),
+          },
+        });
+        store.dispatch('restaurants/load');
+        expect(store.state.restaurants.loading).toEqual(true);
+      });
+    });
+
     describe('when loading succeeds', () => {
       it('stores the restaurants', async () => {
         const records = [

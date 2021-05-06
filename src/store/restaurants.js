@@ -2,6 +2,7 @@ const restaurants = api => ({
   namespaced: true,
   state: {
     records: [],
+    loading: true,
   },
   actions: {
     load({commit}) {
