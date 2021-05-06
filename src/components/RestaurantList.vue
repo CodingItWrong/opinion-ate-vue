@@ -6,7 +6,7 @@
       color="primary"
       data-testid="loading-indicator"
     />
-    <v-alert type="error" data-testid="loading-error">
+    <v-alert v-if="loadError" type="error" data-testid="loading-error">
       Restaurants could not be loaded.
     </v-alert>
     <v-list-item
@@ -36,6 +36,7 @@ export default {
   }),
   computed: mapState({
     loading: state => state.restaurants.loading,
+    loadError: state => state.restaurants.loadError,
     restaurants: state => state.restaurants.records,
   }),
 };
