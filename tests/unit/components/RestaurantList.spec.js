@@ -36,7 +36,17 @@ describe('RestaurantList', () => {
     });
 
     wrapper = mount(RestaurantList, {localVue, store});
-  }
+  };
+
+  it('displays the loading indicator while loading', () => {
+    mountWithStore({loading: true});
+    expect(wrapper.find('[data-testid="loading-indicator"]').exists()).toBe(true);
+  });
+
+  it('does not display the loading indicator while not loading', () => {
+    mountWithStore({loading: false});
+    expect(wrapper.find('[data-testid="loading-indicator"]').exists()).toBe(false);
+  });
 
   it('loads restaurants on mount', () => {
     mountWithStore();
