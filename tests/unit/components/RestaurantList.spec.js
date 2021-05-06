@@ -21,7 +21,7 @@ describe('RestaurantList', () => {
   let restaurantsModule;
   let wrapper;
 
-  beforeEach(() => {
+  const mountWithStore = () => {
     restaurantsModule = {
       namespaced: true,
       state: {records},
@@ -36,6 +36,10 @@ describe('RestaurantList', () => {
     });
 
     wrapper = mount(RestaurantList, {localVue, store});
+  }
+
+  beforeEach(() => {
+    mountWithStore();
   });
 
   it('loads restaurants on mount', () => {
