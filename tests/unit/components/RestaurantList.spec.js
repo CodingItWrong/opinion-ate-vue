@@ -21,7 +21,7 @@ describe('RestaurantList', () => {
   let restaurantsModule;
   let wrapper;
 
-  const mountWithStore = (state = {records}) => {
+  const mountWithStore = (state = {records, loading: false}) => {
     restaurantsModule = {
       namespaced: true,
       state,
@@ -49,13 +49,15 @@ describe('RestaurantList', () => {
   });
 
   describe('when loading succeeds', () => {
+    beforeEach(() => {
+      mountWithStore();
+    });
+
     it('does not display the loading indicator while not loading', () => {
-      mountWithStore({loading: false});
       expect(wrapper.find('[data-testid="loading-indicator"]').exists()).toBe(false);
     });
 
     it('displays the restaurants', () => {
-      mountWithStore();
       expect(findByTestId(wrapper, 'restaurant', 0).text()).toBe('Sushi Place');
       expect(findByTestId(wrapper, 'restaurant', 1).text()).toBe('Pizza Place');
     });
