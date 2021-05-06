@@ -6,6 +6,9 @@
       color="primary"
       data-testid="loading-indicator"
     />
+    <v-alert type="error" data-testid="loading-error">
+      Restaurants could not be loaded.
+    </v-alert>
     <v-list-item
       v-for="restaurant in restaurants"
       :key="restaurant.id"
