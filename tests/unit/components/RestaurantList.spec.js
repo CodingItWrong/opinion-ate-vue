@@ -21,10 +21,10 @@ describe('RestaurantList', () => {
   let restaurantsModule;
   let wrapper;
 
-  const mountWithStore = () => {
+  const mountWithStore = (state = {records}) => {
     restaurantsModule = {
       namespaced: true,
-      state: {records},
+      state,
       actions: {
         load: jest.fn().mockName('load'),
       },
