@@ -7,24 +7,26 @@ describe('restaurants', () => {
   localVue.use(Vuex);
 
   describe('load action', () => {
-    it('stores the restaurants', async () => {
-      const records = [
-        {id: 1, name: 'Sushi Place'},
-        {id: 2, name: 'Pizza Place'},
-      ];
+    describe('when loading succeeds', () => {
+      it('stores the restaurants', async () => {
+        const records = [
+          {id: 1, name: 'Sushi Place'},
+          {id: 2, name: 'Pizza Place'},
+        ];
 
-      const api = {
-        loadRestaurants: () => Promise.resolve(records),
-      };
-      const store = new Vuex.Store({
-        modules: {
-          restaurants: restaurants(api),
-        },
+        const api = {
+          loadRestaurants: () => Promise.resolve(records),
+        };
+        const store = new Vuex.Store({
+          modules: {
+            restaurants: restaurants(api),
+          },
+        });
+
+        await store.dispatch('restaurants/load');
+
+        expect(store.state.restaurants.records).toEqual(records);
       });
-
-      await store.dispatch('restaurants/load');
-
-      expect(store.state.restaurants.records).toEqual(records);
     });
   });
 });
