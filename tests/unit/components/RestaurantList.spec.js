@@ -15,6 +15,7 @@ describe('RestaurantList', () => {
     {id: 2, name: 'Pizza Place'},
   ];
 
+  const vuetify = new Vuetify();
   const localVue = createLocalVue();
   localVue.use(Vuex);
 
@@ -35,7 +36,7 @@ describe('RestaurantList', () => {
       },
     });
 
-    wrapper = mount(RestaurantList, {localVue, store});
+    wrapper = mount(RestaurantList, {localVue, store, vuetify});
   };
 
   it('displays the loading indicator while loading', () => {
