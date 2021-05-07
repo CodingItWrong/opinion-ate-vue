@@ -1,5 +1,8 @@
 <template>
   <form @submit.prevent="handleSave">
+    <v-alert type="error" data-testid="new-restaurant-name-error">
+      Name is required.
+    </v-alert>
     <v-text-field
       placeholder="Add Restaurant"
       filled
