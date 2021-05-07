@@ -109,6 +109,8 @@ describe('restaurants', () => {
 
   describe('create action', () => {
     const newRestaurantName = 'Sushi Place';
+    const existingRestaurant = {id: 1, name: 'Pizza Place'};
+    const responseRestaurant = {id: 2, name: newRestaurantName};
 
     let api;
     let store;
@@ -119,14 +121,29 @@ describe('restaurants', () => {
       };
       store = new Vuex.Store({
         modules: {
-          restaurants: restaurants(api),
+          restaurants: restaurants(api, {records: [existingRestaurant]}),
         },
       });
     });
 
     it('saves the restaurant to the server', () => {
+      api.createRestaurant.mockResolvedValue(responseRestaurant);
       store.dispatch('restaurants/create', newRestaurantName);
       expect(api.createRestaurant).toHaveBeenCalledWith(newRestaurantName);
+    });
+
+    describe('when save succeeds', () => {
+      beforeEach(() => {
+        api.createRestaurant.mockResolvedValue(responseRestaurant);
+        store.dispatch('restaurants/create', newRestaurantName);
+      });
+
+      it('stores the returned restaurant in the store', () => {
+        expect(store.state.restaurants.records).toEqual([
+          existingRestaurant,
+          responseRestaurant,
+        ]);
+      });
     });
   });
 });
