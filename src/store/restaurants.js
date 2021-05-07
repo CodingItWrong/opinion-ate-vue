@@ -19,7 +19,7 @@ const restaurants = (api, stateOverrides) => ({
         });
     },
     create({commit}, newRestaurantName) {
-      api.createRestaurant(newRestaurantName).then(record => {
+      return api.createRestaurant(newRestaurantName).then(record => {
         commit('addRecord', record);
       });
     },
