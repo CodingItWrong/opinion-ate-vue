@@ -151,4 +151,28 @@ describe('NewRestaurantForm', () => {
       ).toContain('The restaurant could not be saved. Please try again.');
     });
   });
+
+  describe('when retrying after a server error', () => {
+    beforeEach(() => {
+      restaurantsModule.actions.create
+        .mockRejectedValueOnce()
+        .mockResolvedValueOnce();
+
+      wrapper
+        .find('[data-testid="new-restaurant-name-field"]')
+        .setValue('Sushi Place');
+      wrapper
+        .find('[data-testid="new-restaurant-submit-button"]')
+        .trigger('click');
+      wrapper
+        .find('[data-testid="new-restaurant-submit-button"]')
+        .trigger('click');
+    });
+
+    it('clears the server error', () => {
+      expect(
+        wrapper.find('[data-testid="new-restaurant-server-error"]').exists(),
+      ).toBe(false);
+    });
+  });
 });
