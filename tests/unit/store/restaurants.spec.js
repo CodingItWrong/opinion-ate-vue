@@ -100,6 +100,10 @@ describe('restaurants', () => {
       it('sets an error flag', () => {
         expect(store.state.restaurants.loadError).toEqual(true);
       });
+
+      it('clears the loading flag', () => {
+        expect(store.state.restaurants.loading).toEqual(false);
+      });
     });
   });
 });

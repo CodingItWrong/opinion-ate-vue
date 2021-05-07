@@ -25,6 +25,7 @@ const restaurants = (api, stateOverrides) => ({
       state.loadError = false;
     },
     recordLoadingError(state) {
+      state.loading = false;
       state.loadError = true;
     },
     storeRecords(state, records) {
