@@ -49,6 +49,12 @@ describe('NewRestaurantForm', () => {
         wrapper.find('[data-testid="new-restaurant-name-error"]').exists(),
       ).toBe(false);
     });
+
+    it('does not display a server error', () => {
+      expect(
+        wrapper.find('[data-testid="new-restaurant-server-error"]').exists(),
+      ).toBe(false);
+    });
   });
 
   describe('when filled in', () => {
@@ -77,6 +83,12 @@ describe('NewRestaurantForm', () => {
     it('does not display a validation error', () => {
       expect(
         wrapper.find('[data-testid="new-restaurant-name-error"]').exists(),
+      ).toBe(false);
+    });
+
+    it('does not display a server error', () => {
+      expect(
+        wrapper.find('[data-testid="new-restaurant-server-error"]').exists(),
       ).toBe(false);
     });
   });
@@ -118,6 +130,25 @@ describe('NewRestaurantForm', () => {
       expect(
         wrapper.find('[data-testid="new-restaurant-name-error"]').exists(),
       ).toBe(false);
+    });
+  });
+
+  describe('when the store action rejects', () => {
+    beforeEach(() => {
+      restaurantsModule.actions.create.mockRejectedValue();
+
+      wrapper
+        .find('[data-testid="new-restaurant-name-field"]')
+        .setValue(restaurantName);
+      wrapper
+        .find('[data-testid="new-restaurant-submit-button"]')
+        .trigger('click');
+    });
+
+    it('displays a server error', () => {
+      expect(
+        wrapper.find('[data-testid="new-restaurant-server-error"]').text(),
+      ).toContain('The restaurant could not be saved. Please try again.');
     });
   });
 });
