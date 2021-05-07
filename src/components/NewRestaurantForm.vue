@@ -43,13 +43,12 @@ export default {
     handleSave() {
       if (this.name) {
         this.validationError = false;
+        this.createRestaurant(this.name).then(() => {
+          this.name = '';
+        });
       } else {
         this.validationError = true;
       }
-
-      this.createRestaurant(this.name).then(() => {
-        this.name = '';
-      });
     },
   },
 };

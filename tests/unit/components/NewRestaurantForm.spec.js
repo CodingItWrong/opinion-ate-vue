@@ -94,6 +94,10 @@ describe('NewRestaurantForm', () => {
         wrapper.find('[data-testid="new-restaurant-name-error"]').text(),
       ).toContain('Name is required');
     });
+
+    it('does not dispatch the create action', () => {
+      expect(restaurantsModule.actions.create).not.toHaveBeenCalled();
+    });
   });
 
   describe('when correcting a validation error', () => {
