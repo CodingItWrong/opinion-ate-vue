@@ -151,6 +151,12 @@ describe('NewRestaurantForm', () => {
         wrapper.find('[data-testid="new-restaurant-server-error"]').text(),
       ).toContain('The restaurant could not be saved. Please try again.');
     });
+
+    it('does not clear the name', () => {
+      expect(
+        wrapper.find('[data-testid="new-restaurant-name-field"]').element.value,
+      ).toEqual(restaurantName);
+    });
   });
 
   describe('when retrying after a server error', () => {
