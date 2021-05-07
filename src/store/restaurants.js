@@ -1,9 +1,10 @@
-const restaurants = api => ({
+const restaurants = (api, stateOverrides) => ({
   namespaced: true,
   state: {
     records: [],
     loading: false,
     loadError: false,
+    ...stateOverrides,
   },
   actions: {
     load({commit}) {
@@ -21,6 +22,7 @@ const restaurants = api => ({
   mutations: {
     startLoading(state) {
       state.loading = true;
+      state.loadError = false;
     },
     recordLoadingError(state) {
       state.loadError = true;

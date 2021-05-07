@@ -36,7 +36,7 @@ describe('restaurants', () => {
         };
         store = new Vuex.Store({
           modules: {
-            restaurants: restaurants(api),
+            restaurants: restaurants(api, {loadError: true}),
           },
         });
         store.dispatch('restaurants/load');
@@ -44,6 +44,10 @@ describe('restaurants', () => {
 
       it('sets a loading flag', () => {
         expect(store.state.restaurants.loading).toEqual(true);
+      });
+
+      it('clears the error flag', () => {
+        expect(store.state.restaurants.loadError).toEqual(false);
       });
     });
 
