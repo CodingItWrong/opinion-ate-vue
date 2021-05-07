@@ -28,16 +28,21 @@ describe('restaurants', () => {
     });
 
     describe('while loading', () => {
-      it('sets a loading flag', () => {
+      let store;
+
+      beforeEach(() => {
         const api = {
           loadRestaurants: () => new Promise(() => {}),
         };
-        const store = new Vuex.Store({
+        store = new Vuex.Store({
           modules: {
             restaurants: restaurants(api),
           },
         });
         store.dispatch('restaurants/load');
+      });
+
+      it('sets a loading flag', () => {
         expect(store.state.restaurants.loading).toEqual(true);
       });
     });
