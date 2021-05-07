@@ -43,6 +43,14 @@ describe('NewRestaurantForm', () => {
     wrapper.destroy();
   });
 
+  describe('initially', () => {
+    it('does not display a validation error', () => {
+      expect(
+        wrapper.find('[data-testid="new-restaurant-name-error"]').exists(),
+      ).toBe(false);
+    });
+  });
+
   describe('when filled in', () => {
     beforeEach(() => {
       wrapper
