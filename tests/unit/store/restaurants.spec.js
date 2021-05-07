@@ -106,4 +106,27 @@ describe('restaurants', () => {
       });
     });
   });
+
+  describe('create action', () => {
+    const newRestaurantName = 'Sushi Place';
+
+    let api;
+    let store;
+
+    beforeEach(() => {
+      api = {
+        createRestaurant: jest.fn().mockName('createRestaurant'),
+      };
+      store = new Vuex.Store({
+        modules: {
+          restaurants: restaurants(api),
+        },
+      });
+    });
+
+    it('saves the restaurant to the server', () => {
+      store.dispatch('restaurants/create', newRestaurantName);
+      expect(api.createRestaurant).toHaveBeenCalledWith(newRestaurantName);
+    });
+  });
 });
