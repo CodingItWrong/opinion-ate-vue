@@ -73,6 +73,12 @@ describe('NewRestaurantForm', () => {
         wrapper.find('[data-testid="new-restaurant-name-field"]').element.value,
       ).toEqual('');
     });
+
+    it('does not display a validation error', () => {
+      expect(
+        wrapper.find('[data-testid="new-restaurant-name-error"]').exists(),
+      ).toBe(false);
+    });
   });
 
   describe('when empty', () => {
