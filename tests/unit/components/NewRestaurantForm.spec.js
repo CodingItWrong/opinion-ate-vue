@@ -95,4 +95,25 @@ describe('NewRestaurantForm', () => {
       ).toContain('Name is required');
     });
   });
+
+  describe('when correcting a validation error', () => {
+    beforeEach(() => {
+      wrapper.find('[data-testid="new-restaurant-name-field"]').setValue('');
+      wrapper
+        .find('[data-testid="new-restaurant-submit-button"]')
+        .trigger('click');
+      wrapper
+        .find('[data-testid="new-restaurant-name-field"]')
+        .setValue(restaurantName);
+      wrapper
+        .find('[data-testid="new-restaurant-submit-button"]')
+        .trigger('click');
+    });
+
+    it('clears the validation error', () => {
+      expect(
+        wrapper.find('[data-testid="new-restaurant-name-error"]').exists(),
+      ).toBe(false);
+    });
+  });
 });

@@ -41,7 +41,9 @@ export default {
       createRestaurant: 'restaurants/create',
     }),
     handleSave() {
-      if (!this.name) {
+      if (this.name) {
+        this.validationError = false;
+      } else {
         this.validationError = true;
       }
 
